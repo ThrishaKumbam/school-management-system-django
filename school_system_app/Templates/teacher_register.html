@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>Teacher Registration</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .heading {
+            color: rgb(74, 72, 72);
+            text-align: center;
+        }
+
+        .form {
+            height: 580px;
+            width: 550px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+            background-color: white;
+            border-radius: 10px;
+            margin: auto;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+
+        .form label {
+            padding-left: 70px;
+        }
+
+        .form input {
+            text-align: right;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            margin-left: 220px;
+            height: 30px;
+            width: 70px;
+            border-radius: 5px;
+            color: rgb(74, 72, 72);
+            background-color: rgb(124, 206, 184);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .inputs {
+            display: flex;
+        }
+
+        .inputs input,
+        .inputs select {
+            width: 90%;
+            height: 20px;
+            text-align: left;
+            border-radius: 4px;
+            margin-top: 12px;
+            border: 1px solid gray;
+            padding: 4px;
+            margin-right: 90px;
+            outline: none;
+        }
+
+        .inputs select {
+            width: 90% !important;
+            margin-right: 93px;
+            height: 30px;
+            width: 260px;
+        }
+
+        .inputs textarea {
+            margin-top: 10px;
+            width: 90%;
+            margin-right: 90px;
+        }
+
+        .inputs label {
+            display: inline-block;
+            width: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .register {
+            padding-left: 130px;
+            padding-top: 10px;
+            font-size: 16px;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 60%;
+            display: flex;
+        }
+
+        .right-nav {
+            width: 40%;
+            justify-content: end;
+            align-items: center;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .navbar p {
+            color: rgb(74, 72, 72);
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin: 20px 30px;
+        }
+
+        .navbar li {
+            display: flex;
+            font-family: 'Arial', sans-serif;
+            justify-content: end !important;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .navbar li a {
+            display: block;
+            text-decoration: none;
+            color: rgb(74, 72, 72);
+            text-align: center;
+        }
+
+        .bottom-section {
+            padding-top: 70px;
+        }
+
+        .back-text {
+            width: 50px;
+            background-color: rgb(124, 206, 184);
+            border-radius: 10px;
+            margin-right: 10px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-weight: bold;
+        }
+
+        .back-text i {
+            color: rgb(74, 72, 72);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="left-nav">
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+            <p>Welcome Teacher,</p>
+        </div>
+        <div class="right-nav">
+            <li class="back-text"><a href="{% url 'register' %}">
+                <i class="fa-solid fa-left-long"></i>
+            </a></li>
+        </div>
+    </div>
+    <div class="bottom-section">
+        <h1 class="heading">Teacher Registration</h1>
+        <form method="post" action="{% url 'teacher_registration' %}" class="form">
+            {% csrf_token %}
+            {% if messages %}
+            <div class="text-center" style=" height: 20px; margin: 10px; text-align: center;">
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        <p id="msg" style="color: rgb(13, 128, 13);">{{ message }}</p>
+                    {% elif message.tags == 'error' %}
+                        <p id="msg" style="color: red;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div class="inputs">
+                <label>{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+
+            <button class="submit-button">Register</button>
+            <div>
+                <p class="register">If already registered? Click <a href="{% url 'user_login' %}" style="text-decoration: none;">here</a> to Login</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var alertDiv = document.getElementById('msg');
+                if (alertDiv) {
+                    alertDiv.parentNode.removeChild(alertDiv);
+                }
+            }, 4000);
+        });
+    </script>
+</body>
+</html>

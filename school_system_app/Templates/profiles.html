@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>My Profile</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .navbar p {
+            color: rgb(74, 72, 72);
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-right: 30px;
+        }
+
+        .navbar li {
+            display: flex;
+            justify-content: end !important;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .navbar li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .heading {
+            text-align: center !important;
+            color: rgb(74, 72, 72);
+            margin-top: -10px;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 50%;
+            display: flex;
+        }
+
+        .right-nav {
+            justify-content: end;
+            align-items: center;
+        }
+
+        .navbar-text li {
+            margin-left: 10px;
+
+        }
+
+        .bodytext {
+            color: black !important;
+            margin-left: 15px;
+            padding-top: 15px;
+        }
+
+        .card-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 90px;
+            margin-top: 55px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+            height: 400px;
+            position: relative;
+        }
+
+        .card-container2 {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 40px;
+            margin-top: 50px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+            height: 400px;
+            margin-right: -5px;
+
+        }
+
+        .card-container3 {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 50px;
+            margin-top: 50px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+            height: 400px;
+            margin-right: -5px;
+        }
+
+        .heading2 {
+            font-weight: bold;
+            background-color: #fff;
+            margin-bottom: 5px;
+            color: rgb(74, 72, 72);
+            margin-top: -1px;
+        }
+
+        .data {
+            height: 65px;
+            width: 180px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 25px;
+        }
+
+        .a {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .a div {
+            margin-left: 20px;
+        }
+
+        .data i {
+            margin-right: 10px;
+            color: rgb(74, 138, 121);
+        }
+
+        .data-email {
+            width: 410px;
+        }
+
+        .data-email2 {
+            width: 410px;
+        }
+
+        .details {
+            display: flex;
+            margin-top: 12px;
+        }
+
+        .container-data {
+            padding-left: 25px;
+        }
+
+        .details-container1,
+        .details-container2,
+        .details-container3 {
+            display: flex;
+        }
+
+        .details-container1 img {
+            height: 350px;
+            width: 300px;
+            margin-left: 70px;
+            margin-top: 90px;
+        }
+
+        .details-container2 img {
+            height: 350px;
+            width: 350px;
+            margin-left: 80px;
+            margin-top: 95px;
+        }
+
+        .details-container3 img {
+            height: 350px;
+            width: 350px;
+            margin-left: 55px;
+            margin-top: 95px;
+        }
+
+        #display-container1 {
+            display: none;
+            height: 150px;
+            width: 190px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            z-index: 2;
+            background-color: white;
+        }
+
+        #display-container2 {
+            display: none;
+            height: 120px;
+            width: 190px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            z-index: 2;
+            background-color: white;
+        }
+
+        #display-container3 {
+            display: none;
+            height: 120px;
+            width: 170px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            z-index: 2;
+            background-color: white;
+        }
+
+        #display-container1 a,
+        #display-container2 a,
+        #display-container3 a {
+            color: rgb(124, 206, 184);
+        }
+
+        .back-text {
+            margin-right: 90px;
+            color: rgb(74, 72, 72);
+            width: 70px;
+            background-color: rgb(124, 206, 184);
+            border-radius: 10px;
+            width: 50px;
+        }
+
+        .back-text i {
+            color: rgb(74, 72, 72);
+            margin-right: 10px;
+        }
+
+        .dropdown-conatiner1,
+        .dropdown-conatiner2,
+        .dropdown-conatiner3 {
+            margin-top: 0px;
+            margin-right: 55px !important;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #iconup {
+            display: none;
+        }
+
+        .assigns {
+            margin-top: 15px;
+        }
+
+        .assigns i {
+            margin-left: 15px;
+            margin-right: 5px;
+        }
+
+        .edit-button {
+            margin-top: 20px;
+            margin-left: 320px;
+            background-color: rgb(124, 206, 184);
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+            border: none;
+            height: 30px;
+            width: 60px;
+            border-radius: 10px;
+        }
+
+        .edit-button a {
+            color: rgb(74, 72, 72);
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="left-nav">
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+            {% if teacher_obj %}
+            <p id="display-name">Hello {{ teacher_obj.user.username }}</p>
+            {% elif admin_obj %}
+            <p id="display-name">Hello {{ admin_obj.username }}</p>
+            {% endif %}
+        </div>
+        <div class="right-nav">
+            <li class="back-text"><a href="javascript:void(0);" onclick="goBack()">
+                    <i class="fa-solid fa-left-long"></i>
+                </a>
+            </li>
+            {% if teacher_obj %}
+            <div class="dropdown-conatiner1">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction1()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction1()" id="iconup"></i>
+            </div>
+            {% elif student_obj %}
+            <div class="dropdown-conatiner2">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction2()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction2()" id="iconup"></i>
+            </div>
+            {% elif admin_obj %}
+            <div class="dropdown-conatiner3">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction3()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction3()" id="iconup"></i>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    {% if teacher_obj %}
+    <div id="display-container1" class="active">
+        <div class="assigns">
+            <i class="fa-solid fa-file-pen"></i>
+            <a href="{% url 'assignment_creation' %}" class="logout">Create Assignment</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-scroll"></i>
+            <a href="{% url 'view_assignments' %}" class="logout">Assignments</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-book"></i>
+            <a href="{% url 'list_submissions' %}" class="logout">Submissions</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </div>
+    </div>
+    {% elif student_obj %}
+    <div id="display-container2" class="active">
+        <div class="assigns">
+            <i class="fa-solid fa-file-import"></i>
+            <a href="{% url 'assignment_submission' %}" class="logout">Submit Assignment</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-book"></i>
+            <a href="{% url 'view_submits' %}" class="logout">Submissions</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </div>
+    </div>
+    {% elif admin_obj %}
+    <div id="display-container3" class="active">
+        <div class="assigns">
+            <i class="fa-solid fa-table-list"></i>
+            <a href="{% url 'teacher_list' %}" class="logout">Teachers List</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-table-list"></i>
+            <a href="{% url 'student_list' %}" class="logout">Students List</a>
+        </div>
+        <div class="assigns">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+        </div>
+    </div>
+    {% endif %}
+    {% if teacher_obj %}
+    <div class="details-container1">
+
+        <img src="/static/Teacher.jpg" />
+        <div class="card-container">
+            <div class="bodytext">
+                <h1 class="heading">My Profile</h1>
+
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">FirstName:</p>
+                        </div>
+                        <div class="container-data">{{ teacher_1.first_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">LastName:</p>
+                        </div>
+                        <div class="container-data">{{ teacher_1.last_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">Username:</p>
+
+
+                        </div>
+                        <div class="container-data">{{ teacher_1.username }}</div>
+                    </div>
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-person-chalkboard"></i>
+                            <p class="heading2">Subject:</p>
+                        </div>
+
+                        <div class="container-data">{{ teacher_2.subject }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <p class="heading2 ">is_superuser:</p>
+                        </div>
+
+                        <div class="container-data">{{ teacher_1.is_superuser }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user-check"></i>
+                            <p class="heading2">Is_active:</p>
+
+                        </div>
+
+                        <div class="container-data">{{ teacher_1.is_active }}</div>
+                    </div>
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p class="heading2">Date of birth:</p>
+
+                        </div>
+
+                        <div class="container-data">{{ teacher_2.date_of_birth }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-person-half-dress"></i>
+                            <p class="heading2">Gender:</p>
+
+                        </div>
+
+                        <div class="container-data" id="gender">{{ teacher_2.gender }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-address-book"></i>
+                            <p class="heading2">Addess:</p>
+                        </div>
+                        <div class="container-data">{{ teacher_2.address }}</div>
+                    </div>
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-phone"></i>
+                            <p class="heading2">Phone Number:</p>
+                        </div>
+                        <div class="container-data">{{ teacher_2.phone_number }}</div>
+                    </div>
+                    <div class="data data-email">
+                        <div class="details">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p class="heading2">Email:</p>
+
+                        </div>
+                        <div class=" container-data">{{ teacher_1.email }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if student_obj %}
+    <div class="details-container2">
+        <div class="card-container2">
+            <div class="bodytext">
+                <h1 class="heading">My Profile</h1>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">First Name:</p>
+                        </div>
+                        <div class="container-data">{{ student_1.first_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">Last Name:</p>
+                        </div>
+                        <div class="container-data">{{ student_1.last_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">Username:</p>
+                        </div>
+                        <div class="container-data">{{ student_1.username }}</div>
+                    </div>
+
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            <p class="heading2">Standard:</p>
+                        </div>
+                        <div class="container-data">{{ student_2.standard }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-person-half-dress"></i>
+                            <p class="heading2">Gender</p>
+                        </div>
+                        <div class="container-data" id="gender">{{ student_2.gender }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user-check"></i>
+                            <p class="heading2">Is active:</p>
+                        </div>
+                        <div class="container-data">{{ student_1.is_active }}</div>
+                    </div>
+
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p class="heading2">Date of birth:</p>
+                        </div>
+                        <div class="container-data">{{ student_2.date_of_birth }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-phone"></i>
+                            <p class="heading2">Phone Number:</p>
+                        </div>
+                        <div class="container-data">{{ student_2.phone_number }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-address-book"></i>
+                            <p class="heading2">Address:</p>
+                        </div>
+                        <div class="container-data">{{ student_2.address }}</div>
+                    </div>
+
+                </div>
+                <div class="a">
+                    <div class="data data-email2">
+                        <div class="details">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p class="heading2">Email:</p>
+                        </div>
+                        <div class="container-data">{{ student_1.email }}</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <img
+            src="https://img.freepik.com/free-vector/organic-flat-design-about-me-concept_23-2148894974.jpg?t=st=1709266569~exp=1709270169~hmac=22050447611abef19e13dfe70ee445a7f2d49496ad9c8b3981eb1db1fc42d650&w=740" />
+    </div>
+    {% endif %}
+    {% if admin_obj %}
+    <div class="details-container3">
+        <div class="card-container3">
+            <div class="bodytext">
+                <h1 class="heading">My Profile</h1>
+                {% if messages %}
+                <div class="text-center">
+                    {% if messages %}
+                    <div class="text-center" style=" height: 20px; margin: 10px; text-align: center;">
+                        {% for message in messages %}
+                            {% if message.tags == 'success' %}
+                                <p id="msg" style="color: rgb(13, 128, 13);">{{ message }}</p>
+                            {% elif message.tags == 'error' %}
+                                <p id="msg" style="color: red;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">First Name:</p>
+                        </div>
+                        <div class="container-data">{{ admin_1.first_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">Last Name:</p>
+                        </div>
+                        <div class="container-data">{{ admin_1.last_name }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user"></i>
+                            <p class="heading2">Username:</p>
+                        </div>
+                        <div class="container-data">{{ admin_1.username }}</div>
+                    </div>
+
+                </div>
+                <div class="a">
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <p class="heading2 ">is_superuser:</p>
+                        </div>
+
+                        <div class="container-data">{{ admin_1.is_superuser }}</div>
+                    </div>
+                    <div class="data">
+                        <div class="details">
+                            <i class="fa-solid fa-user-check"></i>
+                            <p class="heading2">Is active:</p>
+                        </div>
+                        <div class="container-data">{{ admin_1.is_active }}</div>
+                    </div>
+
+                </div>
+                <div class="a">
+                </div>
+                <div class="a">
+                    <div class="data data-email2">
+                        <div class="details">
+                            <i class="fa-solid fa-envelope"></i>
+                            <p class="heading2">Email:</p>
+                        </div>
+                        <div class="container-data">{{ admin_1.email }}</div>
+                    </div>
+
+                </div>
+                <div>
+                    <button type="submit" class="edit-button"><a
+                            href="{% url 'admin_update' id=admin_obj.id %}">Edit</a></button>
+                </div>
+            </div>
+        </div>
+        <img src="/static/admin.jpg" />
+    </div>
+    {% endif %}
+
+    <script>
+        var gender = document.getElementById("gender");
+
+        if (gender) {
+            if (gender.textContent == "M") {
+                gender.textContent = "Male";
+            } else {
+                gender.textContent = "Female";
+            }
+        } else {
+            console.log("Element with id 'gender' not found");
+        }
+
+        function displayFunction1() {
+            var a = document.getElementById("display-container1");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+        function displayFunction2() {
+            var a = document.getElementById("display-container2");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+        function displayFunction3() {
+            var a = document.getElementById("display-container3");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                console.log("a")
+                var alertDiv = document.getElementById('msg');
+                if (alertDiv) {
+                    alertDiv.parentNode.removeChild(alertDiv);
+                }
+            }, 4000);
+        });
+
+        function goBack() {
+            window.location.href = document.referrer;
+        }
+    </script>
+</html>

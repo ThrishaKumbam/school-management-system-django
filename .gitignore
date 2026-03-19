@@ -1,0 +1,28 @@
+# Python
+*.pyc
+__pycache__/
+
+# Environment
+.env
+.python-version
+
+# Virtual environments
+venv/
+env/
+
+# Django
+db.sqlite3
+media/
+
+# IDE
+.vscode/
+
+# Logs
+*.log
+
+# Misc
+*.pot
+local_settings.py
+
+# Your project-specific junk
+file_uploads/

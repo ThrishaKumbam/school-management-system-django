@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission Denied</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        .denied-container {
+            width: 500px;
+            height: 300px;
+            padding-top: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+            background-color: white;
+            border-radius: 10px;
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .login-button {
+            height: 30px;
+            width: 80px;
+            background-color: #7cceb7;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .login-button a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="denied-container">
+        <h1 style="color: red;">Permission Denied</h1>
+        <p>You don't have permission to access this page.</p>
+        <p>Please contact your administrator for assistance.</p>
+        <button type="submit" class="login-button">
+            <a href="javascript:void(0);" onclick="goBack()">Back</a>
+        </button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

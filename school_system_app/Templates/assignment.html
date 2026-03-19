@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>Create Assignment</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+            height: 70px !important;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .navbar p {
+            color: rgb(74, 72, 72);
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-right: 30px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .navbar li {
+            display: flex;
+            justify-content: end !important;
+        }
+
+        .navbar li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .heading {
+            text-align: center;
+        }
+
+        .form {
+            height: auto;
+            margin: auto;
+            width: 400px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .submit-button button {
+            font-weight: bold;
+            margin-top: 20px !important;
+            margin-left: 170px;
+            height: 30px;
+            width: 70px;
+            border-radius: 5px;
+            background-color: rgb(124, 206, 184);
+            border: none;
+            cursor: pointer;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 50%;
+            display: flex;
+        }
+
+        .right-nav {
+            justify-content: end;
+            align-items: center;
+            margin-right: 40px;
+        }
+
+        .navbar-text li a {
+            color: rgb(74, 72, 72);
+            display: flex;
+        }
+
+        .logout-img-align {
+            width: 15px !important;
+            height: 15px !important;
+            align-items: center;
+            margin-top: 2px;
+            margin-left: 2px;
+        }
+
+        .back-text {
+            width: 100px;
+            background-color: rgb(124, 206, 184);
+            display: flex;
+            border-radius: 10px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20px;
+        }
+
+        .back-text i {
+            padding-left: 200px !important;
+        }
+
+        .inputs {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .inputs label {
+            width: 110px;
+            text-align: right;
+            margin-top: 3px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .inputs input,
+        .inputs select,
+        .inputs textarea {
+            margin-left: 10px;
+            width: 250px;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+
+        }
+
+        .container {
+            margin: auto;
+            position: relative;
+        }
+
+        .container .right-container {
+            float: right;
+            margin-right: 30px;
+        }
+
+        .xyz {
+            display: flex;
+        }
+
+        .dropdown-conatiner {
+            margin-top: 3px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        #display-container {
+            display: none;
+            height: 170px;
+            width: 160px;
+            position: absolute;
+            position: fixed;
+            margin-top: -65px;
+            padding-right: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            right: 15px;
+            background-color: white;
+            justify-content: end;
+        }
+
+        #display-container a {
+            color: rgb(124, 206, 184);
+        }
+
+        .active {
+            display: none;
+
+        }
+
+        .b {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #iconup {
+            display: none;
+        }
+
+        .assigns {
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+
+        .assigns a {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left-nav">
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+            {% if teacher_obj %}
+            <p id="display-name">Hello {{ teacher_obj.user.username }}</p>
+            {% elif admin_obj %}
+            <p id="display-name">Hello Principal</p>
+            {% endif %}
+        </div>
+        <div class="right-nav">
+            {% if admin_obj %}
+            <ul class="navbar-text">
+                <li class="back-text"><a href="{% url 'teacher_list' %}">
+                        <i class="fa-solid fa-left-long"></i>
+                    </a></li>
+            </ul>
+            {% endif %}
+            <div class="dropdown-conatiner">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction()" id="iconup"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="xyz">
+        <div class="container">
+            {% if teacher_obj %}
+            <h1 class="heading" style="text-align: center; padding-left: 40px;">Create Assignment</h1>
+            {% elif admin_obj %}
+            <h1 class="heading" style="text-align: center; padding-left: 40px;">Assign Teacher-Standards</h1>
+            {% endif %}
+            <div class="b">
+                <form method="post" class="form">
+                    {% if messages %}
+                    <div class="text-center" style=" height: 20px; margin: 10px; text-align: center;">
+                        {% for message in messages %}
+                            {% if message.tags == 'success' %}
+                                <p id="msg" style="color: rgb(13, 128, 13);">{{ message }}</p>
+                            {% elif message.tags == 'error' %}
+                                <p id="msg" style="color: red;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="inputs">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div class="submit-button">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+                <div id="display-container" class="active">
+                    {% if admin_obj %}
+                    <div class="assigns">
+                        <i class="fa-solid fa-table-list"></i>
+                        <a href="{% url 'teacher_list' %}">Teachers List</a>
+                    </div>
+                    {% endif %}
+                    <div class="assigns">
+                        <i class="fa-solid fa-scroll"></i>
+                        <a href="{% url 'view_assignments' %}">Assignments</a>
+                    </div>
+                    {% if teacher_obj %}
+                    <div class="assigns">
+                        <i class="fa-solid fa-book"></i>
+                        <a href="{% url 'list_submissions' %}">Submissions</a>
+                    </div>
+                    {% endif %}
+                    <div class="assigns">
+                        <i class="fa-solid fa-user"></i>
+                        <a href="{% url 'my_profile' %}" class="viewaccount">Profile</a> <br />
+                    </div>
+                    <div class="assigns">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var alertDiv = document.getElementById('msg');
+                if (alertDiv) {
+                    alertDiv.parentNode.removeChild(alertDiv);
+                }
+            }, 4000);
+        });
+
+        function displayFunction() {
+            var a = document.getElementById("display-container");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+    </script>
+</body>
+</html>

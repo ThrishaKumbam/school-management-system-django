@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>Registration</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .heading {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            color: rgb(74, 72, 72);
+        }
+
+        .registration-form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 350px;
+            width: 1100px;
+            margin: auto;
+            margin-top: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+            position: relative;
+            background-image: url(/static/openbook.webp);
+            background-size: cover;
+        }
+
+        .teacher-container,
+        .student-container {
+            width: 50%;
+            padding-left: 10%;
+        }
+
+        .teacher-container button,
+        .student-container button {
+            color: black !important;
+            padding-left: 10%;
+            background-color: rgb(124, 206, 184) !important;
+        }
+
+
+        .registration-form button {
+            width: 150px;
+            height: 50px;
+            font-size: 20px;
+            background-color: #28218d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 25px;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 50%;
+            display: flex;
+        }
+
+        .right-nav {
+            width: 65%;
+            justify-content: end !important;
+            margin-right: 10px;
+            margin-top: 15px;
+        }
+
+        .navbar li {
+            display: flex;
+            justify-content: end !important;
+            align-items: center;
+            font-weight: bold;
+
+        }
+
+        .back-text {
+            height: 30px;
+            width: 55px;
+            background-color: rgb(124, 206, 184);
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 5px;
+            margin-right: 10px;
+            padding-right: 20px;
+            color: rgb(74, 72, 72);
+        }
+
+        .back-text i {
+            color: rgb(74, 72, 72) ;
+        }
+
+        .line {
+            height: 300px;
+            width: 2px;
+            background-color: rgb(74, 72, 72);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="left-nav">
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+        </div>
+        <div class="right-nav">
+            <li class="back-text"><a href="{% url 'user_login' %}">
+                <i class="fa-solid fa-left-long"></i>
+            </a></li>
+        </div>
+    </div>
+    <div class="registration">
+        <div class="heading">
+            <h1>Registration</h1>
+        </div>
+        <div class="registration-form">
+            <div class="teacher-container">
+                <h2>For Teachers</h2>
+                <h5>Inspire your students from here</h5>
+                <a href="{% url 'teacher_registration' %}">
+                    <button>Start</button>
+                </a>
+            </div>
+            <div class="line">
+
+            </div>
+            <div class="student-container">
+                <h2>For Students</h2>
+                <h5>Start your journey from here</h5>
+                <a href="{% url 'student_registration' %}">
+                    <button>Start</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

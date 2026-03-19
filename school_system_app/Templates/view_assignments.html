@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>view Assignments</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: auto;
+            position: relative;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: rgb(124, 206, 184);
+            color: rgb(74, 72, 72);
+        }
+
+        .heading {
+            padding-top: 90px;
+            text-align: center;
+            color: rgb(74, 72, 72);
+        }
+
+        .navbar {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 70px;
+            height: 70px;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .navbar p {
+            color: rgb(74, 72, 72);
+            display: flex;
+            font-family: 'Arial', sans-serif;
+            align-items: center;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-right: 30px;
+        }
+
+        .navbar li {
+            display: flex;
+            font-family: 'Arial', sans-serif;
+            justify-content: end !important;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .navbar li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 50%;
+            display: flex;
+        }
+
+        .left-nav {
+            max-width: 500px;
+        }
+
+        .right-nav {
+            justify-content: end;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .back-text {
+            margin-right: 20px;
+            color: rgb(74, 72, 72);
+            width: 70px;
+            background-color: rgb(124, 206, 184);
+            border-radius: 10px;
+            width: 50px;
+        }
+
+        .back-text i {
+            color: rgb(74, 72, 72);
+        }
+
+
+        .submission_table th button {
+            border: none;
+            outline: none;
+            background-color: rgb(124, 206, 184);
+        }
+
+        .submission_table {
+            position: relative;
+        }
+
+        .table-data {
+            position: relative;
+        }
+
+        .filt-button {
+            background-color: rgb(239, 239, 239);
+            color: rgb(74, 72, 72);
+            border: none;
+            height: 40px;
+            margin-top: 30px;
+            float: right;
+            margin-right: 30px;
+            width: 70px;
+            font-weight: bold;
+            margin-left: -4px;
+            cursor: pointer;
+        }
+
+        .card {
+            display: none;
+            height: 130px;
+            width: 300px;
+            background-color: rgb(227, 246, 242);
+            position: absolute;
+            margin-left: 73px;
+            margin-top: 60px;
+            z-index: 2;
+            box-shadow: rgba(0, 0, 0, 0.35) 3px 3px 5px
+        }
+
+        .card select,
+        .card label {
+            margin-top: 10px;
+        }
+
+        .card select {
+            margin-left: 10px;
+        }
+
+        .card input {
+            margin-top: 10px;
+        }
+
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sort-button {
+            margin-left: 4px;
+            background-color: rgb(239, 239, 239);
+            color: rgb(74, 72, 72);
+            border: none;
+            margin-top: -40px;
+            float: left;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .sorting-card {
+            display: none;
+            height: 88px;
+            width: 250px;
+            font-size: 14px;
+            background-color: rgb(239, 239, 239);
+            position: absolute;
+            margin-left: 70px;
+            margin-top: -50px;
+            z-index: 1;
+            padding-left: 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 5px;
+            padding-top: 8px;
+        }
+
+        .sorting-card select {
+            margin-left: 20px;
+        }
+
+        .sorting-card label {
+            margin-top: 10px;
+        }
+
+        .apply-button {
+            height: 25px;
+            background-color: #7cceb7;
+            border: none;
+            border-radius: 6px;
+            width: 100px;
+            margin-top: 10px;
+            margin-left: -35px;
+            cursor: pointer;
+        }
+
+        .apply-button1 {
+            height: 25px;
+            background-color: #7cceb7;
+            border: none;
+            border-radius: 6px;
+            width: 100px;
+            margin-top: 10px;
+            margin-left: 60px;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            height: 25px;
+            background-color: #7cceb7;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .cancel-button1 {
+            height: 25px;
+            background-color: #7cceb7;
+            border: none;
+            border-radius: 6px;
+            margin-top: 10px;
+            margin-right: 80px;
+            cursor: pointer;
+        }
+
+        .btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .options-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            overflow-x: hidden;
+            transition: 0.5s;
+            background-color: rgb(239, 239, 239);
+            padding-top: 60px;
+            margin-top: 70px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .options-container.show {
+            width: 60px;
+        }
+
+        .hamburger-menu i {
+            margin-top: 20px;
+            margin-left: 10px;
+            font-size: 28px;
+            color: rgb(74, 72, 72);
+            cursor: pointer;
+        }
+
+        .options-container .sort-button i {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .options-container .filt-button i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .a {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .b {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .search-class {
+            display: flex;
+            margin-top: 13px;
+            margin-left: 100px;
+        }
+
+        .search-class input {
+            height: 35px !important;
+            width: 300px !important;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 5px;
+            border: none;
+            outline: none;
+        }
+
+        .search-button {
+            height: 35px;
+            width: 30px;
+            border: none;
+            background-color: white;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 5px;
+            cursor: pointer;
+        }
+
+        .exit-button {
+            height: 35px;
+            width: 30px;
+            border: none;
+            background-color: white;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-conatiner {
+            margin-top: 0px;
+            margin-right: 30px !important;
+            cursor: pointer;
+        }
+
+        #display-container {
+            display: none;
+            height: 150px;
+            width: 170px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: -80px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        #display-container a {
+            color: rgb(124, 206, 184);
+        }
+
+        #display-container2 {
+            display: none;
+            height: 150px;
+            width: 170px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: -80px;
+            padding-right: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        #display-container2 a {
+            color: rgb(124, 206, 184);
+        }
+
+        .active {
+            display: none;
+
+        }
+
+        #iconup {
+            display: none;
+        }
+
+        #display-name span {
+            padding-left: 5px;
+        }
+
+        .inputs1 {
+            margin-top: 5px;
+        }
+
+        .assigns1,
+        .assigns2,
+        .assigns3,
+        .assigns4 {
+            margin-top: 15px;
+        }
+
+        .assigns2 {
+            margin-left: 20px;
+        }
+
+        .assigns3 {
+            margin-left: -40px;
+        }
+
+        .assigns4 {
+            margin-left: -40px;
+        }
+
+        .assigns1 a,
+        .assigns2 a,
+        .assigns3 a,
+        .assigns4 a {
+            margin-left: 10px;
+        }
+
+        .assigns-a,
+        .assigns-b,
+        .assigns-c,
+        .assigns-d {
+            margin-top: 15px;
+        }
+
+        .assigns-b {
+            margin-left: -35px;
+        }
+
+        .assigns-c {
+            margin-left: -70px;
+        }
+
+        .assigns-d {
+            margin-left: -70px;
+        }
+
+        .assigns-a a,
+        .assigns-b a,
+        .assigns-c a,
+        .assigns-d a {
+            margin-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="left-nav">
+
+            <div class="hamburger-menu" onClick="toggleOptions()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="options-container">
+                <button class="sort-button" onClick="sortingFunction()" title="Sorting">
+                    <i class="fa-solid fa-sort"></i>
+                </button>
+                <button class="filt-button" onClick="filteringFunction()" title="Filtering">
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+            </div>
+
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+            {% if teacher_obj %}
+            <p id="display-name">Hello <span>{{ teacher_obj.user.username }}</span></p>
+            {% elif admin_obj %}
+            <p id="display-name">Hello <span> Principal</span></p>
+            {% endif %}
+        </div>
+
+        <div class="search-class">
+            <button class="search-button" id="searchButton" type="submit" onClick="searchFunction()"><i
+                    class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="search" id="searchInput" placeholder="Search for Assignments..." />
+            <button class="exit-button" id="removeButton" type="submit" onclick="exitFunction()"><i
+                    class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+
+        <div class="right-nav">
+            {% if teacher_obj %}
+            <li class="back-text"><a href="{% url 'assignment_creation' %}">
+                    <i class="fa-solid fa-left-long"></i>
+                </a>
+            </li>
+            <div class="dropdown-conatiner">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction()" id="iconup"></i>
+            </div>
+            {% elif admin_obj %}
+            <li class="back-text"><a href="javascript:void(0);" onclick="goBack()">
+                    <i class="fa-solid fa-left-long"></i>
+                </a></li>
+            </li>
+            <div class="dropdown-conatiner">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction2()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction2()" id="iconup"></i>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <h1 class="heading">Assignments</h1>
+    {% if messages %}
+    <div class="text-center" style=" height: 20px; margin: 10px; text-align: center;">
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <p id="msg" style="color: rgb(13, 128, 13);">{{ message }}</p>
+            {% elif message.tags == 'error' %}
+                <p id="msg" style="color: red;">{{ message }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <div class="b">
+        <div class="a">
+            <div class="sorting-card" id="sortingCard">
+                <form method="post" id="SortingForm">
+                    {% csrf_token %}
+                    {% for field in form2 %}
+                    <div class="inputs1" id="filter-inputs">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="apply-button">Apply Sorting</button>
+                    <button type="submit" class="cancel-button" onclick="cancelFunctionsort()">Cancel</button>
+                </form>
+            </div>
+            <div class="card" id="filterCard1">
+                <form method="post" id="filterForm">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="inputs" id="filter-inputs">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div class="btns">
+                        <button type="submit" class="apply-button1">Apply Filter</button>
+                        <button type="submit" class="cancel-button1" onclick="cancelFunction()">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <table class="submission_table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Assignment Title</th>
+                    <th>Description</th>
+                    <th>Created at</th>
+                    <th>Deadline</th>
+                    <th>Standard</th>
+                    {% if teacher_obj %}
+                    <th>Edit</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                <tr class="table-data">
+                    <td>{{ assignment.id }}</td>
+                    <td>{{ assignment.title }}</td>
+                    <td>{{ assignment.description }}</td>
+                    <td>{{ assignment.created_at|date:"Y-m-d" }}</td>
+                    <td>{{ assignment.deadline|date:"Y-m-d" }}</td>
+                    <td>{{ assignment.standard }}</td>
+                    {% if teacher_obj %}
+                    <td><a href="{% url 'update_assignment' assignment.id %}"><i class="fa-solid fa-pen-to-square"
+                                style="color: black;"></i></a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% if teacher_obj %}
+        <div id="display-container" class="active">
+            <div class="assigns-a">
+                <i class="fa-solid fa-file-pen"></i>
+                <a href="{% url 'assignment_creation' %}" class="createassigns">Create Assignment</a> <br />
+            </div>
+            <div class="assigns-b">
+                <i class="fa-solid fa-file-lines"></i>
+                <a href="{% url 'list_submissions' %}" class="listassigns">Submissions</a> <br />
+            </div>
+            <div class="assigns-c">
+                <i class="fa-solid fa-user"></i>
+                <a href="{% url 'my_profile' %}" class="profile">Profile</a> <br />
+            </div>
+            <div class="assigns-d">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+            </div>
+        </div>
+        {% elif admin_obj %}
+        <div id="display-container2" class="active2">
+            <div class="assigns1">
+                <i class="fa-solid fa-table-list"></i>
+                <a href="{% url 'teacher_list' %}">Teachers List</a>
+            </div>
+            <div class="assigns2">
+                <i class="fa-solid fa-person-chalkboard"></i>
+                <a href="{% url 'assignment_creation' %}" class="createassigns">Assign Standard</a> <br />
+            </div>
+            <div class="assigns3">
+                <i class="fa-solid fa-user"></i>
+                <a href="{% url 'my_profile' %}" class="profile">Profile</a> <br />
+            </div>
+            <div class="assigns4">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var alertDiv = document.getElementById('msg');
+                if (alertDiv) {
+                    alertDiv.parentNode.removeChild(alertDiv);
+                }
+            }, 4000);
+        });
+
+        const a = documnet.getElementById("filter-inputs")
+        const b = document.querySelector(".inputs input")
+        function filteringFunction() {
+            console.log("clicked")
+            var filters1 = document.getElementById("filterCard1");
+            var a = document.querySelector(".submission_table")
+            filters1.style.display = "block";
+        }
+        function sortingFunction() {
+            var f = document.getElementById("sortingCard");
+            var a = document.querySelector(".submission_table")
+            f.style.display = "block";
+        }
+        function cancelFunction() {
+            var a = document.querySelector(".submission_table")
+            var filters = document.getElementById("filterCard1");
+            var inputs = document.querySelectorAll(".inputs input");
+            inputs.forEach(input => input.value = ' ');
+            filters.style.display = "none";
+        }
+        function cancelFunctionsort() {
+            var sortingCard = document.getElementById("sortingCard");
+            var fieldInput = document.getElementById("id_field_name");
+            var orderingInput = document.getElementById("id_ordering");
+            fieldInput.value = '';
+            orderingInput.value = '';
+            sortingCard.style.display = "none";
+        }
+
+        function toggleOptions() {
+            var optionsContainer = document.querySelector('.options-container');
+            optionsContainer.classList.toggle('show');
+        }
+
+        function searchFunction() {
+            var query = document.getElementById('searchInput').value.trim();
+            if (query !== "") {
+                window.location.href = '/app/view-assignments/?query=' + query;
+            }
+        }
+        function exitFunction() {
+            document.getElementById('searchInput').value = "";
+            window.location.href = '/app/view-assignments/';
+        }
+        function displayFunction() {
+            var a = document.getElementById("display-container");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+        function displayFunction2() {
+            var a = document.getElementById("display-container2");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active2")) {
+                a.style.display = "block";
+                a.classList.remove("active2");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active2");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+        function goBack() {
+            window.location.href = document.referrer;
+        }
+    </script>
+
+</body>
+
+</html>

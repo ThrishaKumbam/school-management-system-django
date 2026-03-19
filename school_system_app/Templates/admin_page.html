@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+
+    <title>Admin Page</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar p {
+            color: rgb(74, 72, 72);
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-right: 30px;
+        }
+
+        .registration-form {
+            background-image: url(/static/openbook.webp);
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        .registration-form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 350px;
+            width: 1100px;
+            margin: auto;
+            margin-top: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+            position: relative;
+        }
+
+        .teacher-container,
+        .student-container {
+            width: 50%;
+            padding-left: 10%;
+        }
+
+        .teacher-container button,
+        .student-container button {
+            color: black !important;
+            padding-left: 10%;
+            background-color: rgb(124, 206, 184) !important;
+        }
+
+
+        .registration-form button {
+            width: 150px;
+            height: 50px;
+            font-size: 20px;
+            background-color: #28218d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 25px;
+        }
+
+        .heading {
+            padding-top: 20px;
+            text-align: center;
+            color: rgb(74, 72, 72);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(124, 206, 184);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .left-nav,
+        .right-nav {
+            width: 50%;
+            display: flex;
+        }
+
+        .right-nav {
+            width: 65%;
+            justify-content: end !important;
+            margin-right: 10px;
+        }
+
+        .professors {
+            margin-left: 156px;
+            height: 292px;
+            width: 256px;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+            margin-top: 0px;
+            cursor: pointer;
+        }
+
+        .studs {
+            margin-top: -290px;
+            margin-left: 480px;
+            height: 290px;
+            width: 256px;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.35) 4px 5px 15px;
+        }
+
+        .registration {
+            margin-top: 100px;
+            margin-left: 210px;
+            width: 900px;
+            height: 480px;
+            background-color: rgb(226, 237, 237);
+        }
+
+        #next {
+            font-size: 20px;
+            padding-top: 50px;
+            padding-right: 100px;
+            text-decoration: none;
+            color: rgb(74, 72, 72);
+            font-weight: bold;
+            float: right
+        }
+
+        #next i {
+            font-size: 20px;
+        }
+
+        .dropdown-conatiner {
+            margin-top: 30px;
+            margin-right: 44px;
+            cursor: pointer;
+        }
+
+        #display-container {
+            display: none;
+            height: 90px;
+            width: 110px;
+            position: absolute;
+            position: fixed;
+            right: 15px;
+            background-color: white;
+            margin-top: -22px;
+            padding-right: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            z-index: 0;
+            background-color: white;
+        }
+
+        #display-container a {
+            padding-left: 10px;
+            color: rgb(124, 206, 184);
+        }
+
+        .active {
+            display: none;
+
+        }
+
+        .b {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #iconup {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="options-container">
+        <button class="back-text1"><a href="{% url 'user_logout' %}">
+                <i class="fa-solid fa-right-from-bracket" style="color: rgb(74, 72, 72);"></i>
+            </a>
+        </button>
+    </div>
+
+    <div class="navbar">
+        <div class="left-nav">
+            <img src="{% static 'schl logo.png' %}" alt="Logo" class="logo">
+            <p>Hello Principal</p>
+        </div>
+        <div class="right-nav">
+            <div class="dropdown-conatiner">
+                <i class="fa-solid fa-angle-down" onclick="displayFunction()" id="icondown"></i>
+                <i class="fa-solid fa-angle-up" onclick="displayFunction()" id="iconup"></i>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="registration">
+        <div class="b">
+            <div id="display-container" class="active">
+                <br />
+                <i class="fa-solid fa-user" style="margin-left: 22px;"></i>
+                <a href="{% url 'my_profile' %}" class="viewaccount">Profile</a> <br />
+                <br />
+                <i class="fa-solid fa-right-from-bracket" style="margin-left: 22px;"></i>
+                <a href="{% url 'user_logout' %}" class="logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="heading">
+            <h1>SELECT USER TYPE</h1>
+        </div>
+        <div class="professors" id="teacher">
+            <img class="teachers" src="{% static 'teachers.png' %}" alt="teachers-img" class="logout-img-align"
+                onClick="teacherFunction()" />
+        </div>
+        <div class="studs" id="student">
+            <img class="students" src="{% static 'students.png' %}" alt="students-img" class="logout-img-align"
+                onClick="studentFunction()" />
+        </div>
+
+        <a href="" id="next" style="margin-top: -10px;">Next Step <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <script>
+        function teacherFunction() {
+            var a = document.getElementById("next");
+            var b = document.getElementById("teacher")
+            var b1 = document.getElementById("student")
+
+            a.setAttribute("href", "{% url 'teacher_list' %}");
+            b.style.border = "2px solid black";
+            b1.style.border = "0px solid black";
+
+        }
+
+        function studentFunction() {
+            var a = document.getElementById("next");
+            var b = document.getElementById("student")
+            var b1 = document.getElementById("teacher")
+
+            a.setAttribute("href", "{% url 'student_list' %}");
+            b.style.border = "2px solid black";
+            b1.style.border = "0px solid black";
+        }
+
+        function displayFunction() {
+            var a = document.getElementById("display-container");
+            var i = document.getElementById("icondown")
+            var i2 = document.getElementById("iconup")
+
+            if (a.classList.contains("active")) {
+                a.style.display = "block";
+                a.classList.remove("active");
+                i2.style.display = "block"
+                i.style.display = "none"
+            } else {
+                a.style.display = "none";
+                a.classList.add("active");
+                i.style.display = "block"
+                i2.style.display = "none"
+            }
+        }
+    </script>
+</body>
+
+</html>
