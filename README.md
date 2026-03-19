@@ -125,7 +125,7 @@ school-management-system-django/
 ## Setup Instructions
 
 ### Clone the Repository
-git clone <repo-url>
+git clone "repo-url"
 cd school-management-system-django  
 
 ### Create Virtual Environment
