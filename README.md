@@ -118,6 +118,8 @@ school-management-system-django/
 │           ├── password_reset_done.html
 │           ├── password_reset_email.html
 │           └── password_reset_form.htmlschool_system/  
+```
+
 ---
 
 ## Setup Instructions
